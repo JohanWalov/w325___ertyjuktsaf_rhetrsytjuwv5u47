@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You should warn users before redesigning your login page</title>
+<meta name="description" content="A blog about usable security, UX design, cybersecurity, and human-centered security. Discover best practices for designing secure and intuitive user experiences, with real-world examples from leading technology companies and digital products.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0C0C0B;--bg-2:#17160F;--fg:#ECE9E0;--body:#D6D2C7;--muted:#8C887D;
+  --line:rgba(236,233,224,.13);--line-2:rgba(236,233,224,.07);
+  --accent:#CBF24D;--accent-ink:#0C0C0B;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;--sans:"Archivo",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.19,1,.22,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--accent);color:var(--accent-ink)}
+a{color:inherit}
+
+/* header (same as homepage) */
+header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line-2)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 36px}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--fg)}
+.logo .blip{width:9px;height:9px;background:var(--accent);border-radius:50%;display:inline-block;animation:blip 2.6s infinite}
+@keyframes blip{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.5);opacity:.55}}
+.nav nav{display:flex;gap:30px}
+.nav nav a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);position:relative;padding:4px 0;transition:color .3s;text-decoration:none}
+.nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .35s var(--ease)}
+.nav nav a:hover{color:var(--fg)}
+.nav nav a:hover::after{width:100%}
+@media(max-width:520px){.nav nav{gap:20px}}
+
+.article{max-width:720px;margin:0 auto;padding:118px 28px 110px}
+.back{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);text-decoration:none;transition:color .3s var(--ease);margin-bottom:42px}
+.back svg{width:15px;height:15px;transition:transform .3s var(--ease)}
+.back:hover{color:var(--accent)}
+.back:hover svg{transform:translateX(-3px)}
+
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(33px,5.4vw,58px);line-height:1.03;letter-spacing:-.03em;color:var(--fg);margin-bottom:34px}
+
+.author{display:flex;align-items:center;gap:14px;margin:30px 0}
+.author img{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none;background:var(--bg-2);border:1px solid var(--line)}
+.author .who{display:flex;flex-direction:column;line-height:1.3}
+.author .who a{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--fg);text-decoration:none;transition:color .25s}
+.author .who a:hover{color:var(--accent)}
+.author .role{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:3px}
+
+/* TLDR — stands out via box only */
+.tldr{font-size:18px;line-height:1.7;color:var(--body);background:var(--bg-2);border:1px solid var(--line);
+  border-radius:12px;padding:20px 24px;margin:26px 0 36px}
+.tldr .lbl{font-family:var(--sans);font-size:18px;color:var(--accent);
+  font-weight:700;margin-right:2px}
+
+/* Victoria's comment — stands out */
+.comment{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin:36px 0}
+.comment .author{margin:0 0 16px}
+.comment p{margin:0 0 16px}
+.comment p:last-child{margin-bottom:0}
+
+h2{font-family:var(--disp);font-weight:500;font-size:clamp(23px,3.3vw,33px);line-height:1.08;letter-spacing:-.02em;color:var(--fg);margin:54px 0 18px}
+
+p{margin:0 0 22px}
+p a,figcaption a,.comment a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:opacity .2s}
+p a:hover,figcaption a:hover{opacity:.7}
+
+ul,ol{margin:0 0 22px;padding-left:0;list-style:none}
+ul li,ol li{position:relative;padding-left:30px;margin-bottom:12px;color:var(--body)}
+ul li::before{content:"";position:absolute;left:4px;top:13px;width:8px;height:8px;background:var(--accent);border-radius:2px}
+ol{counter-reset:n}
+ol li{counter-increment:n}
+ol li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:1px;font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700}
+
+figure{margin:32px 0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+figcaption{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Usable&nbsp;Security</a>
+  </div>
+</header>
+<article class="article">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
+  <h1>You should warn users before redesigning your login page</h1>
+  <div class="author"><img src="https://usablesecurity.blog/_assets/v11/b14ffa78df23b434f10b306ec645eace6b9ed621.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
+      <div class="tldr"><span class="lbl">TLDR</span>: Sudden login page redesigns can look suspicious to users. If people open a product one day and see a completely different authentication screen, some will assume it’s a phishing page or compromised website. A short announcement before and after launch helps reduce confusion and builds trust.</div>
+      <p>Login screens become familiar over time. People repeatedly see the same layout, spacing, and colors for years. Eventually, users subconsciously memorize them as part of “what feels safe”.</p>
+      <div class="comment"><div class="author"><img src="https://usablesecurity.blog/_assets/v11/b2e54f351cdc1644afcbedb3389a6a1f5ffa789f.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>The irony is that security teaches users to pay attention to suspicious and unusual authentication behavior, yet products themselves often redesign login and authentication screens without warning or explanation, leaving users confused and frustrated.</p></div>
+      <h2>What happens when the login page suddenly changes</h2>
+      <p>Here's what happens in practice. A user opens a product they've used for years. Mental models takes over, they go straight to the email field, then the password field, without really looking at the screen.</p>
+      <p>Then one day the screen is different. New layout, new colors, fields in a different place.</p>
+      <p>For a moment, the user stops. And the questions that follow are exactly the ones security awareness training tells them to ask:</p>
+      <ul><li>Is this really the right site?</li><li>Was the company hacked?</li><li>Is someone trying to steal my password?</li></ul>
+      <p>Some users will close the tab. Some will retype the URL to "check". Some will hesitate before entering credentials they've typed a thousand times. A few will assume the worst and submit a support ticket asking whether the company has been breached.</p>
+      <p>None of this is irrational. It's the behavior we want from security-aware users. The problem is that a legitimate redesign triggers the same alarm as a real attack, and the product gave them nothing to tell the difference.</p>
+      <h2>What good UX looks like</h2>
+      <ol><li>Announce before launch. Tell users a change is coming through the channels they already trust: an in-product banner, an email from a known address, a note in the changelog. Something as simple as "We're updating the look of our sign-in page next week. Your login and password won't change" removes most of the surprise.</li><li>Reassure at the moment of the change. Right after launch, the new login page itself should acknowledge it. A short line "We've refreshed our sign-in page, use the same email and password as before" tells the returning user this is expected, not an attack.</li></ol>
+      <figure><img src="https://usablesecurity.blog/_assets/v11/41b515b7ced86a01cc9102fd21db8b4ff37cf860.png" alt="" loading="lazy"><figcaption><a href="https://www.productboard.com/" target="_blank" rel="noopener">Mailchimp</a>. Redesign banner warning users the sign-in page will look different over the coming weeks, while reassuring them their login won't change.</figcaption></figure>
+      <figure><img src="https://usablesecurity.blog/_assets/v11/71633afb7bcceab4d28ee30332b35849ed2ca7b3.png" alt="" loading="lazy"><figcaption><a href="https://www.google.com/" target="_blank" rel="noopener">Google</a>. Announcement shown before launch that a redesigned sign-in page is coming, with an option to dismiss.</figcaption></figure>
+      <figure><img src="https://usablesecurity.blog/_assets/v11/7493c4ea26d86d2e8ffbecedc5a2c01b0dc9e2b9.png" alt="" loading="lazy"><figcaption><a href="https://www.payoneer.com/" target="_blank" rel="noopener">Payoneer</a>. Post-launch modal acknowledging the new login screen and reassuring users it's the same account, with a fresh design.</figcaption></figure>
+      <h2>Bottom line</h2>
+      <p>A login redesign is one of the few changes that can make a trustworthy product look compromised. Users have been trained to distrust unfamiliar authentication screens, and a silent redesign sets off exactly that instinct. Tell people before it happens, reassure them when it does, so redesign stops feeling like a threat and starts feeling like an upgrade.</p>
+</article>
+</body>
+</html>
