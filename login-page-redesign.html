@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>You should warn users before redesigning your login page</title>
 <meta name="description" content="A blog about usable security, UX design, cybersecurity, and human-centered security. Discover best practices for designing secure and intuitive user experiences, with real-world examples from leading technology companies and digital products.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +46,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px)
 h1{font-family:var(--disp);font-weight:400;font-size:clamp(33px,5.4vw,58px);line-height:1.03;letter-spacing:-.03em;color:var(--fg);margin-bottom:34px}
 
 .author{display:flex;align-items:center;gap:14px;margin:30px 0}
-.author img{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none;background:var(--bg-2);border:1px solid var(--line)}
+.author .ava{width:46px;height:46px;border-radius:50%;flex:none;object-fit:cover;background:var(--bg-2);border:1px solid var(--line)}
 .author .who{display:flex;flex-direction:column;line-height:1.3}
 .author .who a{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--fg);text-decoration:none;transition:color .25s}
 .author .who a:hover{color:var(--accent)}
@@ -90,10 +91,10 @@ figcaption{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
 <article class="article">
   <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
   <h1>You should warn users before redesigning your login page</h1>
-  <div class="author"><img src="https://usablesecurity.blog/_assets/v11/b14ffa78df23b434f10b306ec645eace6b9ed621.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
+  <div class="author"><img class="ava" src="images/Sviatoslav_Nytka.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
       <div class="tldr"><span class="lbl">TLDR</span>: Sudden login page redesigns can look suspicious to users. If people open a product one day and see a completely different authentication screen, some will assume it’s a phishing page or compromised website. A short announcement before and after launch helps reduce confusion and builds trust.</div>
       <p>Login screens become familiar over time. People repeatedly see the same layout, spacing, and colors for years. Eventually, users subconsciously memorize them as part of “what feels safe”.</p>
-      <div class="comment"><div class="author"><img src="https://usablesecurity.blog/_assets/v11/b2e54f351cdc1644afcbedb3389a6a1f5ffa789f.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>The irony is that security teaches users to pay attention to suspicious and unusual authentication behavior, yet products themselves often redesign login and authentication screens without warning or explanation, leaving users confused and frustrated.</p></div>
+      <div class="comment"><div class="author"><img class="ava" src="images/Victoria_Shutenko.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>The irony is that security teaches users to pay attention to suspicious and unusual authentication behavior, yet products themselves often redesign login and authentication screens without warning or explanation, leaving users confused and frustrated.</p></div>
       <h2>What happens when the login page suddenly changes</h2>
       <p>Here's what happens in practice. A user opens a product they've used for years. Mental models takes over, they go straight to the email field, then the password field, without really looking at the screen.</p>
       <p>Then one day the screen is different. New layout, new colors, fields in a different place.</p>
@@ -103,9 +104,9 @@ figcaption{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
       <p>None of this is irrational. It's the behavior we want from security-aware users. The problem is that a legitimate redesign triggers the same alarm as a real attack, and the product gave them nothing to tell the difference.</p>
       <h2>What good UX looks like</h2>
       <ol><li>Announce before launch. Tell users a change is coming through the channels they already trust: an in-product banner, an email from a known address, a note in the changelog. Something as simple as "We're updating the look of our sign-in page next week. Your login and password won't change" removes most of the surprise.</li><li>Reassure at the moment of the change. Right after launch, the new login page itself should acknowledge it. A short line "We've refreshed our sign-in page, use the same email and password as before" tells the returning user this is expected, not an attack.</li></ol>
-      <figure><img src="https://usablesecurity.blog/_assets/v11/41b515b7ced86a01cc9102fd21db8b4ff37cf860.png" alt="" loading="lazy"><figcaption><a href="https://www.productboard.com/" target="_blank" rel="noopener">Mailchimp</a>. Redesign banner warning users the sign-in page will look different over the coming weeks, while reassuring them their login won't change.</figcaption></figure>
-      <figure><img src="https://usablesecurity.blog/_assets/v11/71633afb7bcceab4d28ee30332b35849ed2ca7b3.png" alt="" loading="lazy"><figcaption><a href="https://www.google.com/" target="_blank" rel="noopener">Google</a>. Announcement shown before launch that a redesigned sign-in page is coming, with an option to dismiss.</figcaption></figure>
-      <figure><img src="https://usablesecurity.blog/_assets/v11/7493c4ea26d86d2e8ffbecedc5a2c01b0dc9e2b9.png" alt="" loading="lazy"><figcaption><a href="https://www.payoneer.com/" target="_blank" rel="noopener">Payoneer</a>. Post-launch modal acknowledging the new login screen and reassuring users it's the same account, with a fresh design.</figcaption></figure>
+      <figure><img src="images/41b515b7ced86a01cc9102fd21db8b4ff37cf860.png" alt="" loading="lazy"><figcaption><a href="https://www.productboard.com/" target="_blank" rel="noopener">Mailchimp</a>. Redesign banner warning users the sign-in page will look different over the coming weeks, while reassuring them their login won't change.</figcaption></figure>
+      <figure><img src="images/71633afb7bcceab4d28ee30332b35849ed2ca7b3.png" alt="" loading="lazy"><figcaption><a href="https://www.google.com/" target="_blank" rel="noopener">Google</a>. Announcement shown before launch that a redesigned sign-in page is coming, with an option to dismiss.</figcaption></figure>
+      <figure><img src="images/7493c4ea26d86d2e8ffbecedc5a2c01b0dc9e2b9.png" alt="" loading="lazy"><figcaption><a href="https://www.payoneer.com/" target="_blank" rel="noopener">Payoneer</a>. Post-launch modal acknowledging the new login screen and reassuring users it's the same account, with a fresh design.</figcaption></figure>
       <h2>Bottom line</h2>
       <p>A login redesign is one of the few changes that can make a trustworthy product look compromised. Users have been trained to distrust unfamiliar authentication screens, and a silent redesign sets off exactly that instinct. Tell people before it happens, reassure them when it does, so redesign stops feeling like a threat and starts feeling like an upgrade.</p>
 </article>
