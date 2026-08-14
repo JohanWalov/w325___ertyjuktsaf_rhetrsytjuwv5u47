@@ -3,9 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://usablesecurity.blog/security-cooldown-ux-design.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>Use security cooldown to keep users from making security mistakes</title>
-<meta name="description" content="A blog about usable security, UX design, cybersecurity, and human-centered security. Discover best practices for designing secure and intuitive user experiences, with real-world examples from leading technology companies and digital products.">
+<meta name="description" content="Security warnings get skipped when the primary button is instantly clickable. A short cooldown gives users just enough time to actually read what they’re confirming.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Usable Security Blog">
+<meta property="og:title" content="Use security cooldown to keep users from making security mistakes">
+<meta property="og:description" content="Security warnings get skipped when the primary button is instantly clickable. A short cooldown gives users just enough time to actually read what they’re confirming.">
+<meta property="og:url" content="https://usablesecurity.blog/security-cooldown-ux-design.html">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Use security cooldown to keep users from making security mistakes">
+<meta name="twitter:description" content="Security warnings get skipped when the primary button is instantly clickable. A short cooldown gives users just enough time to actually read what they’re confirming.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -85,18 +96,18 @@ figcaption{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
 <body>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="index.html">Usable&nbsp;Security</a>
+    <a class="logo" href="https://usablesecurity.blog/">Usable&nbsp;Security</a>
   </div>
 </header>
 <article class="article">
-  <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
+  <a class="back" href="https://usablesecurity.blog/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
   <h1>Use security cooldown to keep users from making security mistakes</h1>
   <div class="author"><img class="ava" src="images/Sviatoslav_Nytka.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
       <div class="tldr"><span class="lbl">TLDR</span>: Important security information is easy to skip when the button to continue is available immediately. For high-risk actions, a short cooldown can give users enough time to read the warning before they can continue.</div>
       <p>Users are good at skipping things they&rsquo;ve seen before. Security warnings are no different. Users often scan the screen, find the primary button, and move on without reading the text.</p>
       <p>But sometimes the information is the most important part of the flow. It might explain how to recover an account, warn about a common scam, or tell users that an action can&rsquo;t be undone. In these moments, simply showing the information isn&rsquo;t enough.</p>
       <p>To resolve this, we should use a security cooldown that temporarily disables the primary action and displays a short countdown before the user can continue.</p>
-      <div class="comment"><div class="author"><img class="ava" src="images/Victoria_Shutenko.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>A security cooldown adds a deliberate delay between presenting a security-critical decision and executing it. This is useful against accidental approval and some social-engineering attacks, where users are pushed to act quickly without reviewing what they are confirming.</p><p>For most sensitive operations, the cooldown should be combined with <a href="ux-design-step-up-authentication.html">step-up authentication</a> (check our article on this topic).</p></div>
+      <div class="comment"><div class="author"><img class="ava" src="images/Victoria_Shutenko.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>A security cooldown adds a deliberate delay between presenting a security-critical decision and executing it. This is useful against accidental approval and some social-engineering attacks, where users are pushed to act quickly without reviewing what they are confirming.</p><p>For most sensitive operations, the cooldown should be combined with <a href="https://usablesecurity.blog/ux-design-step-up-authentication.html">step-up authentication</a> (check our article on this topic).</p></div>
       <h2>What good UX looks like</h2>
       <ol><li>Not every product needs a security cooldown. Use it only when users are making security-critical decisions where skipping important information could lead to serious consequences.</li><li>Make the countdown visible. Show how many seconds are left and when the button will become available.</li><li>Keep the pause short. The goal is to give users enough time to notice and read the warning, not to frustrate them.</li></ol>
       <figure><img src="images/41cd07038462909b5f4b444154b09fe39bf9e229.png" alt="" loading="lazy"><figcaption><a href="https://www.coinbase.com/" target="_blank" rel="noopener">Coinbase</a>. A short countdown keeps the user from immediately checking checkboxes with warning about common wallet scams before they can continue.</figcaption></figure>

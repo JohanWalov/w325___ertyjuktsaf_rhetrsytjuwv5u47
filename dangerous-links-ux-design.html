@@ -3,9 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://usablesecurity.blog/dangerous-links-ux-design.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>Don&rsquo;t make dangerous links look trustworthy</title>
-<meta name="description" content="A blog about usable security, UX design, cybersecurity, and human-centered security. Discover best practices for designing secure and intuitive user experiences, with real-world examples from leading technology companies and digital products.">
+<meta name="description" content="A link inside a product feels trusted, but the sender may not be. Warn users early, show the real destination, and flag known-malicious links before they open.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Usable Security Blog">
+<meta property="og:title" content="Don’t make dangerous links look trustworthy">
+<meta property="og:description" content="A link inside a product feels trusted, but the sender may not be. Warn users early, show the real destination, and flag known-malicious links before they open.">
+<meta property="og:url" content="https://usablesecurity.blog/dangerous-links-ux-design.html">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Don’t make dangerous links look trustworthy">
+<meta name="twitter:description" content="A link inside a product feels trusted, but the sender may not be. Warn users early, show the real destination, and flag known-malicious links before they open.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -87,11 +98,11 @@ figcaption{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
 <body>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="index.html">Usable&nbsp;Security</a>
+    <a class="logo" href="https://usablesecurity.blog/">Usable&nbsp;Security</a>
   </div>
 </header>
 <article class="article">
-  <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
+  <a class="back" href="https://usablesecurity.blog/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
   <h1>Don&rsquo;t make dangerous links look trustworthy</h1>
   <div class="author"><img class="ava" src="images/Sviatoslav_Nytka.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
       <div class="tldr"><span class="lbl">TLDR</span>: A link inside a product can feel trusted by default. But the person who sent it may not be. A scammer can send a link that looks safe but points somewhere else, or move the conversation outside the product entirely. Good UX should warn users early, explain what happens when they click, and block or flag links that are already known to be suspicious.</div>
