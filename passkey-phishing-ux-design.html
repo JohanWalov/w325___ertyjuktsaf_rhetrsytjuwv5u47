@@ -2,123 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://usablesecurity.blog/passkey-phishing-ux-design.html">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>Passkey solves phishing only when you design it right</title>
-<meta name="description" content="Passkeys remove the password attackers try to steal through phishing, but users won’t discover them alone. Offer a passkey right after a successful password login, when the friction is fresh.">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="Usable Security Blog">
-<meta property="og:title" content="Passkey solves phishing only when you design it right">
-<meta property="og:description" content="Passkeys remove the password attackers try to steal through phishing, but users won’t discover them alone. Offer a passkey right after a successful password login, when the friction is fresh.">
-<meta property="og:url" content="https://usablesecurity.blog/passkey-phishing-ux-design.html">
-<meta property="og:locale" content="en_US">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Passkey solves phishing only when you design it right">
-<meta name="twitter:description" content="Passkeys remove the password attackers try to steal through phishing, but users won’t discover them alone. Offer a passkey right after a successful password login, when the friction is fresh.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0C0C0B;--bg-2:#17160F;--fg:#ECE9E0;--body:#D6D2C7;--muted:#8C887D;
-  --line:rgba(236,233,224,.13);--line-2:rgba(236,233,224,.07);
-  --accent:#CBF24D;--accent-ink:#0C0C0B;
-  --disp:"Bricolage Grotesque",system-ui,sans-serif;--sans:"Archivo",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
-  --ease:cubic-bezier(.19,1,.22,1);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased;}
-::selection{background:var(--accent);color:var(--accent-ink)}
-a{color:inherit}
-
-/* header (same as homepage) */
-header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line-2)}
-.wrap{max-width:1280px;margin:0 auto;padding:0 36px}
-.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
-.logo{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--fg)}
-.logo .blip{width:9px;height:9px;background:var(--accent);border-radius:50%;display:inline-block;animation:blip 2.6s infinite}
-@keyframes blip{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.5);opacity:.55}}
-.nav nav{display:flex;gap:30px}
-.nav nav a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);position:relative;padding:4px 0;transition:color .3s;text-decoration:none}
-.nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .35s var(--ease)}
-.nav nav a:hover{color:var(--fg)}
-.nav nav a:hover::after{width:100%}
-@media(max-width:520px){.nav nav{gap:20px}}
-
-.article{max-width:720px;margin:0 auto;padding:118px 28px 110px}
-.back{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);text-decoration:none;transition:color .3s var(--ease);margin-bottom:42px}
-.back svg{width:15px;height:15px;transition:transform .3s var(--ease)}
-.back:hover{color:var(--accent)}
-.back:hover svg{transform:translateX(-3px)}
-
-h1{font-family:var(--disp);font-weight:400;font-size:clamp(33px,5.4vw,58px);line-height:1.03;letter-spacing:-.03em;color:var(--fg);margin-bottom:34px}
-
-.author{display:flex;align-items:center;gap:14px;margin:30px 0}
-.author .ava{width:46px;height:46px;border-radius:50%;flex:none;object-fit:cover;background:var(--bg-2);border:1px solid var(--line)}
-.author .who{display:flex;flex-direction:column;line-height:1.3}
-.author .who a{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--fg);text-decoration:none;transition:color .25s}
-.author .who a:hover{color:var(--accent)}
-.author .role{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:3px}
-
-/* TLDR — stands out via box only */
-.tldr{font-size:18px;line-height:1.7;color:var(--body);background:var(--bg-2);border:1px solid var(--line);
-  border-radius:12px;padding:20px 24px;margin:26px 0 36px}
-.tldr .lbl{font-family:var(--sans);font-size:18px;color:var(--accent);
-  font-weight:700;margin-right:2px}
-
-/* Victoria's comment — stands out */
-.comment{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin:36px 0}
-.comment .author{margin:0 0 16px}
-.comment p{margin:0 0 16px}
-.comment p:last-child{margin-bottom:0}
-
-h2{font-family:var(--disp);font-weight:500;font-size:clamp(23px,3.3vw,33px);line-height:1.08;letter-spacing:-.02em;color:var(--fg);margin:54px 0 18px}
-
-p{margin:0 0 22px}
-p a,figcaption a,.comment a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:opacity .2s}
-p a:hover,figcaption a:hover{opacity:.7}
-
-code{font-family:var(--mono);font-size:.9em;background:var(--bg-2);border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--fg)}
-
-ul,ol{margin:0 0 22px;padding-left:0;list-style:none}
-ul li,ol li{position:relative;padding-left:30px;margin-bottom:12px;color:var(--body)}
-ul li::before{content:"";position:absolute;left:4px;top:13px;width:8px;height:8px;background:var(--accent);border-radius:2px}
-ol{counter-reset:n}
-ol li{counter-increment:n}
-ol li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:1px;font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700}
-
-figure{margin:32px 0}
-figure img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
-figcaption{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
-</style>
+<title>Redirecting…</title>
+<link rel="canonical" href="https://usablesecurity.blog/passkey-how-to-design-ux-best-practices-examples.html">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=https://usablesecurity.blog/passkey-how-to-design-ux-best-practices-examples.html">
+<script>location.replace("https://usablesecurity.blog/passkey-how-to-design-ux-best-practices-examples.html");</script>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <a class="logo" href="https://usablesecurity.blog/">Usable&nbsp;Security</a>
-  </div>
-</header>
-<article class="article">
-  <a class="back" href="https://usablesecurity.blog/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
-  <h1>Passkey solves phishing only when you design it right</h1>
-  <div class="author"><img class="ava" src="images/Sviatoslav_Nytka.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
-      <div class="tldr"><span class="lbl">TLDR</span>: Passkeys remove the password that attackers try to steal through phishing. But users won&rsquo;t necessarily discover them on their own. A good moment to offer a passkey is right after a successful password login, when the user has just experienced the manual password input it is meant to remove.</div>
-      <p>Passwords are still one of the easiest things to phish. A fake login page can look exactly like the real one, and users can still type their password into it.</p>
-      <p>Passkeys change this. The device uses a cryptographic credential to prove that the user has access to it. So even if a phishing page looks identical to the real one, there is no password to steal.</p>
-      <div class="comment"><div class="author"><img class="ava" src="images/Victoria_Shutenko.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>A passkey is a credential based on public-key (asymmetric) cryptography, built on the WebAuthn/FIDO2 standard. When you register a passkey, your device generates a key pair locally: a private key and a public key. The private key never leaves the device, it&rsquo;s stored in hardware-backed secure storage (a Secure Enclave, TPM, or equivalent). Only the public key is sent to and stored by the server (the &ldquo;relying party&rdquo;).</p><p>Each credential is also scoped to a specific relying party ID at creation time, which is what makes it origin-bound: a passkey created for <code>example.com</code> simply won&rsquo;t produce a valid signature for <code>evil-example.com</code>, no matter how convincing the fake page looks.</p><p>Passkeys can be device-bound (tied to one physical authenticator, like a hardware security key) or synced &ndash; backed up and shared across a user&rsquo;s devices via a platform provider such as iCloud Keychain or Google Password Manager.</p><p>One caveat worth knowing: this guarantee holds for the direct authentication ceremony. Cross-device sign-in flows, where you approve a login from a second device, sit outside that same-origin check and depend more on the user trusting the right context &ndash; which is a smaller, but real, surface attackers have started probing.</p></div>
-      <p>The problem is that most users won&rsquo;t go looking for passkey. They don&rsquo;t regularly open Security Settings to see whether a better login method has appeared.</p>
-      <p>A much better moment is immediately after a successful password login. The user has just typed their password. That&rsquo;s when you can offer: &ldquo;Set up a passkey and sign in faster next time&rdquo;. The value is obvious because the user has just experienced the problem.</p>
-      <h2>What good UX looks like</h2>
-      <ol><li>Offer passkeys after login. Don&rsquo;t make users discover them in Settings. The successful password login is a natural moment to introduce them.</li><li>Explain the benefit, not the technology. &ldquo;Sign in with Face ID instead of typing your password&rdquo; is more useful than &ldquo;Enable FIDO2 authentication&rdquo;.</li><li>Keep passkey management in Settings. Users still need to see, add, and remove passkeys, especially after losing or replacing a device.</li><li>Design recovery together with passkeys. A strong authentication method with a weak recovery flow just creates a new attack path.</li></ol>
-      <figure><img src="images/94fafb819b7dd96e0d03eca05232616daf17edd7.png" alt="" loading="lazy"><figcaption><a href="https://www.wix.com/" target="_blank" rel="noopener">Wix</a>. Post-login prompt that connects passkeys with faster logins and better security.</figcaption></figure>
-      <figure><img src="images/e2e118edee0bf37622f60da8406137a85da4e461.png" alt="" loading="lazy"><figcaption><a href="https://bolt.eu/" target="_blank" rel="noopener">Bolt</a>. Uses the familiar phone-unlock pattern to make passkeys feel intuitive and easy to understand.</figcaption></figure>
-      <figure><img src="images/ab22615b6c117b395e08d713c36b9e9970f250f7.png" alt="" loading="lazy"><figcaption><a href="https://family.co/" target="_blank" rel="noopener">Family</a>. Uses a post-login prompt to explain why setting up a passkey is worth it.</figcaption></figure>
-      <figure><img src="images/78e4b3585b917b7c3244901c090e28841b2350d3.png" alt="" loading="lazy"><figcaption><a href="https://www.shopify.com/" target="_blank" rel="noopener">Shopify</a>. Post-login prompt focused on the core value: faster and safer login without passwords.</figcaption></figure>
-      <h2>Bottom line</h2>
-      <p>Passkeys remove the password that attackers try to steal through phishing. Don&rsquo;t wait for users to find passkey. Let them experience the friction of a password once, then offer a faster and safer way to sign in next time.</p>
-</article>
+<p>This page has moved. If you are not redirected, <a href="https://usablesecurity.blog/passkey-how-to-design-ux-best-practices-examples.html">click here</a>.</p>
 </body>
 </html>

@@ -19,132 +19,102 @@
 <meta name="twitter:description" content="A blog about usable security, UX design, cybersecurity, and human-centered security. Discover best practices for designing secure and intuitive user experiences, with real-world examples from leading technology companies and digital products.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0C0C0B;
-  --bg-2:#151513;
-  --fg:#ECE9E0;
-  --muted:#8C887D;
-  --line:rgba(236,233,224,.13);
-  --line-2:rgba(236,233,224,.07);
-  --accent:#CBF24D;
-  --accent-ink:#0C0C0B;
-  --disp:"Bricolage Grotesque",system-ui,sans-serif;
-  --sans:"Archivo",system-ui,sans-serif;
-  --mono:"Space Mono",ui-monospace,monospace;
-  --ease:cubic-bezier(.19,1,.22,1);
+  --bg:#0a0a0a;--bg-2:#141210;--fg:#f2efe7;--body:#cec9bc;--muted:#78756a;
+  --line:rgba(242,239,231,.10);--line-2:rgba(242,239,231,.05);
+  --disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-feature-settings:"ss01","cv11"}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1280px;margin:0 auto;padding:0 36px}
-.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em}
-::selection{background:var(--accent);color:var(--accent-ink)}
+::selection{background:var(--fg);color:var(--bg)}
+.wrap{max-width:1360px;margin:0 auto;padding:0 40px}
 
-/* ===== floating "Read article" button ===== */
-#preview{position:fixed;top:0;left:0;z-index:80;pointer-events:none;opacity:0;
-  transform:translate(-50%,-50%) scale(.7);transition:opacity .3s var(--ease),transform .4s var(--ease);will-change:transform;
-  display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;
-  font-weight:700;background:var(--accent);color:var(--accent-ink);padding:14px 22px;border-radius:999px;white-space:nowrap}
-#preview svg{width:14px;height:14px}
-@media (hover:none){#preview{display:none}}
-
-/* ===== nav ===== */
-header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px);
-  background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line-2)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
-.logo{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px;color:var(--fg);text-decoration:none}
-.logo:hover{color:var(--fg)}
-.logo .blip{width:9px;height:9px;background:var(--accent);border-radius:50%;display:inline-block;animation:blip 2.6s infinite}
-@keyframes blip{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.5);opacity:.55}}
-.nav nav{display:flex;gap:30px}
-.nav nav a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);position:relative;padding:4px 0;transition:color .3s}
-.nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .35s var(--ease)}
+/* ---- nav (shared) ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(18px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line-2)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:-.005em;color:var(--fg);display:inline-flex;align-items:center;gap:12px}
+.logo .blip{width:7px;height:7px;background:var(--fg);display:inline-block;border-radius:50%;animation:blip 3s infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.3}}
+.nav nav{display:flex;gap:34px}
+.nav nav a{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);position:relative;padding:6px 0;transition:color .3s var(--ease)}
+.nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--fg);transition:width .35s var(--ease)}
 .nav nav a:hover{color:var(--fg)}
 .nav nav a:hover::after{width:100%}
-.nav .place{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.nav .place{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0}
 @media(max-width:520px){.nav nav{gap:20px}}
 
-/* ===== reveal utils ===== */
-.r-line{display:block;overflow:hidden}
-.r-line>span{display:block;transform:translateY(106%);transition:transform 1s var(--ease)}
+/* ---- reveal ---- */
+.r-line{display:block;overflow:hidden;padding:0.05em 0 0.18em}
+.r-line>span{display:block;transform:translateY(110%);transition:transform 1.1s var(--ease)}
 .r-line.in>span{transform:none}
-.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r-line>span{transform:none}.reveal{opacity:1;transform:none}}
 
-/* ===== hero ===== */
-.hero{padding:150px 0 60px}
-.hero h1{font-family:var(--disp);font-weight:400;font-size:clamp(44px,8.2vw,128px);line-height:.92;letter-spacing:-.035em}
-.hero h1 i{font-style:italic;font-weight:300;color:var(--muted)}
-.hero h1 em{font-style:italic;color:var(--accent)}
-.hero-foot{display:flex;justify-content:flex-start;align-items:flex-end;gap:40px;margin-top:46px;flex-wrap:wrap}
-.hero-foot .by{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.hero-foot .by a{color:var(--fg);border-bottom:1px solid var(--line)}
-.hero-foot .by a:hover{color:var(--accent);border-color:var(--accent)}
+/* Hide the decorative cursor-follow preview; keep DOM intact */
+#preview{display:none!important}
 
-/* ===== marquee (logos) ===== */
-.mq-cap{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);
-  display:flex;align-items:center;gap:14px;margin:34px 0 0}
-.mq-cap::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent);flex:none}
-.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:40px 0;margin-top:18px;position:relative}
-.marquee .track{display:inline-flex;align-items:center;white-space:nowrap;animation:scroll 34s linear infinite;will-change:transform}
+/* ---- HERO ---- */
+.hero{padding:180px 0 80px}
+.hero h1{font-family:var(--disp);font-weight:300;font-size:clamp(38px,6.5vw,96px);line-height:1.02;letter-spacing:-.035em;color:var(--fg);font-variation-settings:"opsz" 144}
+.hero h1 i{font-style:italic;font-weight:300;color:var(--fg)}
+.hero h1 em{font-style:italic;font-weight:300;color:var(--fg)}
+.hero-foot{display:flex;justify-content:flex-start;align-items:flex-end;gap:40px;margin-top:24px;flex-wrap:wrap}
+.hero-foot .by{font-family:var(--sans);font-size:14px;letter-spacing:0;color:var(--muted);max-width:44ch;line-height:1.6}
+.hero-foot .by a{color:var(--fg);border-bottom:1px solid var(--line);transition:border-color .3s var(--ease)}
+.hero-foot .by a:hover{border-color:var(--fg)}
+
+/* ---- marquee (kept, monochrome) ---- */
+.mq-cap{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);display:flex;align-items:center;gap:16px;margin:80px 0 20px}
+.mq-cap::before{content:"";width:36px;height:1px;background:var(--muted)}
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:44px 0;position:relative}
+.marquee .track{display:inline-flex;align-items:center;white-space:nowrap;animation:scroll 44s linear infinite;will-change:transform}
 .marquee .track.paused{animation-play-state:paused}
-.mq-fade{position:absolute;top:0;right:0;bottom:0;width:140px;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,var(--bg) 68%)}
-.mq-ctrl{position:absolute;right:24px;top:50%;transform:translateY(-50%);z-index:3;width:46px;height:46px;border-radius:50%;
-  border:1px solid var(--line);background:var(--bg);color:var(--fg);display:grid;place-items:center;cursor:pointer;
-  transition:border-color .3s var(--ease),color .3s var(--ease)}
-.mq-ctrl:hover{border-color:var(--accent);color:var(--accent)}
-.mq-ctrl:active{transform:translateY(-50%) scale(.92)}
-.mq-ctrl svg{width:16px;height:16px}
-.marquee .lg{display:inline-flex;align-items:center;padding:0 56px;opacity:.55;transition:opacity .35s var(--ease)}
-.marquee .lg:hover{opacity:.55}
-.marquee .lglogo{height:52px;width:auto;display:block}
+.mq-fade{position:absolute;top:0;right:0;bottom:0;width:180px;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,var(--bg) 70%)}
+.mq-ctrl{position:absolute;right:28px;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:1px solid var(--line);background:var(--bg);color:var(--muted);display:grid;place-items:center;cursor:pointer;transition:color .3s var(--ease),border-color .3s var(--ease)}
+.mq-ctrl:hover{color:var(--fg);border-color:var(--fg)}
+.mq-ctrl svg{width:14px;height:14px}
+.marquee .lg{display:inline-flex;align-items:center;padding:0 60px;opacity:.4;transition:opacity .4s var(--ease)}
+
+.marquee .lglogo{height:44px;width:auto;display:block}
 .marquee .lglogo path,.marquee .lglogo rect,.marquee .lglogo circle,.marquee .lglogo polygon,.marquee .lglogo ellipse{fill:var(--fg)!important}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
-/* ===== section head ===== */
-.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:84px 0 30px;flex-wrap:wrap}
-.shead .l h2{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,68px);line-height:.95;letter-spacing:-.03em}
-.shead .num{font-family:var(--mono);font-size:13px;color:var(--muted)}
+/* ---- section head ---- */
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding:130px 0 40px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.shead .l h2{font-family:var(--disp);font-weight:300;font-size:clamp(36px,5.4vw,80px);line-height:.96;letter-spacing:-.03em;color:var(--fg);font-variation-settings:"opsz" 144}
+.shead .num{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted)}
 
-/* ===== article list ===== */
-.list{border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:30px;
-  padding:38px 12px;border-bottom:1px solid var(--line);position:relative;transition:padding .5s var(--ease)}
-.row::before{content:"";position:absolute;inset:0;background:var(--bg-2);opacity:0;transition:opacity .4s var(--ease);z-index:-1}
-.row:hover{padding-left:26px;padding-right:26px}
-.row:hover::before{opacity:1}
-.row .idx{font-family:var(--mono);font-size:14px;color:var(--muted);transition:color .4s}
-.row:hover .idx{color:var(--accent)}
-.row h3{font-family:var(--disp);font-weight:400;font-size:clamp(24px,3.3vw,44px);line-height:1.02;letter-spacing:-.025em;transition:transform .5s var(--ease),color .4s}
-.row:hover h3{transform:translateX(12px)}
-.row .arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.45s var(--ease)}
-.row .arrow svg{width:18px;height:18px;transition:transform .45s var(--ease)}
-.row:hover .arrow{background:var(--accent);border-color:var(--accent)}
-.row:hover .arrow svg{transform:translate(2px,-2px);stroke:var(--accent-ink)}
-.row .desc{grid-column:2/3;font-size:15px;color:var(--muted);max-width:64ch;margin-top:14px;line-height:1.5}
+/* ---- article list (loose, no card fill) ---- */
+.list{}
+.row{display:grid;grid-template-columns:56px 1fr 40px;align-items:baseline;gap:40px;padding:44px 0;border-bottom:1px solid var(--line);position:relative;transition:padding .5s var(--ease)}
+.row .idx{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);align-self:flex-start;padding-top:14px;transition:color .4s var(--ease)}
+.row h3{font-family:var(--disp);font-weight:400;font-size:clamp(24px,3vw,42px);line-height:1.05;letter-spacing:-.022em;color:var(--fg);font-variation-settings:"opsz" 96;transition:transform .55s var(--ease)}
+.row .desc{font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--muted);margin-top:14px;max-width:64ch}
+.row .arrow{align-self:flex-start;padding-top:18px;color:var(--muted);transition:color .4s var(--ease),transform .5s var(--ease);justify-self:end;width:auto;height:auto;border:none;background:none;border-radius:0;display:block}
+.row .arrow svg{width:22px;height:22px}
+.row:hover .idx{color:var(--fg)}
+.row:hover h3{transform:translateX(8px)}
+.row:hover .arrow{color:var(--fg);transform:translate(6px,-2px)}
 @media(max-width:760px){
-  .row{grid-template-columns:auto 1fr;gap:14px 16px;padding:26px 4px}
-  .row:hover{padding-left:10px;padding-right:10px}
+  .row{grid-template-columns:auto 1fr;gap:14px 18px;padding:32px 0}
+  .row .idx{padding-top:6px}
   .row .arrow{display:none}
-  .row .desc{grid-column:1/-1;margin-top:8px}
+  .row .desc{grid-column:1/-1;margin-top:10px}
   .row:hover h3{transform:none}
 }
 
-/* ===== contact ===== */
-.cta{padding:120px 0 130px}
-.cta h2{font-family:var(--disp);font-weight:400;font-size:clamp(40px,6.6vw,104px);line-height:.92;letter-spacing:-.035em;max-width:14ch}
-.cta h2 em{font-style:normal;color:var(--accent)}
-.cta-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:46px}
-.btn{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:17px 26px;border-radius:999px;border:1px solid var(--line);transition:.4s var(--ease);will-change:transform}
-.btn:hover{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.btn svg{width:15px;height:15px}
-.ask{margin-top:54px;margin-bottom:36px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.ask a{color:var(--fg);border-bottom:1px solid var(--line);transition:color .2s,border-color .2s}
-.ask a:hover{color:var(--accent);border-color:var(--accent)}
+/* ---- ask + footer ---- */
+.ask{font-family:var(--sans);font-size:15px;letter-spacing:0;color:var(--muted);padding:80px 0 120px;line-height:1.55}
+.ask a{color:var(--fg);border-bottom:1px solid var(--line);transition:border-color .3s var(--ease)}
+.ask a:hover{border-color:var(--fg)}
 </style>
 </head>
 <body>
@@ -165,8 +135,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px)
   <!-- HERO -->
   <section class="hero">
     <h1>
-      <span class="r-line"><span>Making security</span></span>
-      <span class="r-line"><span><em>usable</em></span></span>
+      <span class="r-line"><span>Making security usable</span></span>
     </h1>
     <div class="hero-foot reveal">
       <span class="by">Blog by <a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a> &amp; <a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a></span>
@@ -306,68 +275,68 @@ header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px)
       <div class="l">
         <h2 class="reveal">Articles</h2>
       </div>
-      <span class="num reveal">(US — 15 / 15)</span>
+
     </div>
 
     <div class="list">
-      <a class="row reveal" href="https://usablesecurity.blog/app-lock-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/app-lock-how-to-design-ux-best-practices-examples.html">
         <span class="idx">01</span>
         <div>
-          <h3>App lock design: why native isn&rsquo;t always enough</h3>
+          <h3>App lock</h3>
           <p class="desc">Native App Lock is useful, but not everyone has access to it or knows where to find it. If your app contains sensitive information, give users an App Lock inside the product too.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/link-previews-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/link-preview-how-to-design-ux-best-practices-examples.html">
         <span class="idx">02</span>
         <div>
-          <h3>Designing link previews without leaking IP addresses</h3>
+          <h3>Link preview</h3>
           <p class="desc">Link previews help users see what they&rsquo;re opening, but generating one can leak the user&rsquo;s IP to any URL shared in chat. Let users disable previews and prefer server-side generation.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/passkey-phishing-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/passkey-how-to-design-ux-best-practices-examples.html">
         <span class="idx">03</span>
         <div>
-          <h3>Passkey solves phishing only when you design it right</h3>
+          <h3>Passkey</h3>
           <p class="desc">Passkeys remove the password attackers try to steal through phishing, but users won&rsquo;t discover them alone. Offer a passkey right after a successful password login, when the friction is fresh.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/incognito-mode-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/incognito-mode-how-to-design-ux-best-practices-examples.html">
         <span class="idx">04</span>
         <div>
-          <h3>Designing incognito mode to prevent shoulder surfing</h3>
+          <h3>Incognito mode</h3>
           <p class="desc">Face ID and passkeys stop the wrong person from getting in, but not the right person&rsquo;s screen from being read. Give users a one-tap privacy mode close to the sensitive data.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/dangerous-links-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/malicious-link-warning-how-to-design-ux-best-practices-examples.html">
         <span class="idx">05</span>
         <div>
-          <h3>Don&rsquo;t make dangerous links look trustworthy</h3>
+          <h3>Malicious link warning</h3>
           <p class="desc">A link inside a product feels trusted, but the sender may not be. Warn users early, show the real destination, and flag known-malicious links before they open.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/security-cooldown-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/security-cooldown-how-to-design-ux-best-practices-examples.html">
         <span class="idx">06</span>
         <div>
-          <h3>Use security cooldown to keep users from making security mistakes</h3>
+          <h3>Security cooldown</h3>
           <p class="desc">Security warnings get skipped when the primary button is instantly clickable. A short cooldown gives users just enough time to actually read what they&rsquo;re confirming.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/recovery-check-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/account-recovery-how-to-design-ux-best-practices-examples.html">
         <span class="idx">07</span>
         <div>
-          <h3>Why every product needs a recovery check</h3>
+          <h3>Account recovery</h3>
           <p class="desc">Users stay logged in for years while their email and phone quietly go stale. Verify recovery methods periodically, before the user actually needs them.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
@@ -376,70 +345,70 @@ header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px)
       <a class="row reveal" href="https://usablesecurity.blog/remember-me-keep-me-signed-in-and-remember-this-device-arent-the-same-thing.html">
         <span class="idx">08</span>
         <div>
-          <h3>&ldquo;Remember me&rdquo;, &ldquo;Keep me signed in&rdquo;, and &ldquo;Remember this device&rdquo; aren&rsquo;t the same thing</h3>
+          <h3>Remember me, Keep me signed in, Remember this device</h3>
           <p class="desc">Three controls, not three names for one: remember an email, hold a session, or skip MFA. Label each precisely and never default the risky ones on.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/ux-design-step-up-authentication.html">
+      <a class="row reveal" href="https://usablesecurity.blog/step-up-authentication-how-to-design-ux-best-practices-examples.html">
         <span class="idx">09</span>
         <div>
-          <h3>Don&rsquo;t forget to design step-up authentication</h3>
+          <h3>Step-up authentication</h3>
           <p class="desc">A logged-in session proves someone signed in once, not that the person acting now is the owner. Ask for fresh proof of identity at sensitive actions.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/on-screen-keyboards-keylogger-protection.html">
+      <a class="row reveal" href="https://usablesecurity.blog/on-screen-keyboard-how-to-design-ux-best-practices-examples.html">
         <span class="idx">10</span>
         <div>
-          <h3>On-screen keyboards: real keylogger protection or a rudiment?</h3>
+          <h3>On-screen keyboard</h3>
           <p class="desc">Built to defeat keyloggers, on-screen keyboards are bypassed by modern malware and fight against autofill. Passkeys and password managers do the job now.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/is-the-last-used-login-method-indicator-safe.html">
+      <a class="row reveal" href="https://usablesecurity.blog/last-used-login-method-how-to-design-ux-best-practices-examples.html">
         <span class="idx">11</span>
         <div>
-          <h3>Is the &ldquo;last used&rdquo; login method indicator safe?</h3>
+          <h3>Last used login method</h3>
           <p class="desc">A &ldquo;last used&rdquo; badge is good UX and safe while the hint lives on the device &mdash; but a security problem the moment it&rsquo;s derived server-side from an entered email.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/login-page-redesign.html">
+      <a class="row reveal" href="https://usablesecurity.blog/login-page-redesign-warning-how-to-design-ux-best-practices-examples.html">
         <span class="idx">12</span>
         <div>
-          <h3>You should warn users before redesigning your login page</h3>
+          <h3>Login page redesign warning</h3>
           <p class="desc">A sudden login redesign looks like phishing to security-aware users. A short announcement before and after launch turns it from a threat into an upgrade.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/password-requirements-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/password-requirements-how-to-design-ux-best-practices-examples.html">
         <span class="idx">13</span>
         <div>
-          <h3>The password rule 9 out of 10 apps forget</h3>
+          <h3>Password requirements</h3>
           <p class="desc">Prevent users from using their email or commonly used passwords. Show it upfront in a checklist, validate in real-time.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/soft-password-lockout-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/soft-password-lockout-how-to-design-ux-best-practices-examples.html">
         <span class="idx">14</span>
         <div>
-          <h3>How to design soft password lockout correctly</h3>
+          <h3>Soft password lockout</h3>
           <p class="desc">Warn users before the final failed attempt, explain what will happen next, show a real countdown timer, and always provide a recovery path through password reset.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
 
-      <a class="row reveal" href="https://usablesecurity.blog/password-reset-ux-design.html">
+      <a class="row reveal" href="https://usablesecurity.blog/password-reset-how-to-design-ux-best-practices-examples.html">
         <span class="idx">15</span>
         <div>
-          <h3>Password reset flows are missing one critical UX aspect</h3>
+          <h3>Password reset</h3>
           <p class="desc">Reset flows should clearly communicate what happens to existing sessions. If they don&rsquo;t, users are left unsure whether they&rsquo;ve actually regained control of their account.</p>
         </div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
@@ -454,13 +423,18 @@ header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px)
 (function(){
   /* hero line reveals */
   requestAnimationFrame(function(){
-    document.querySelectorAll('.hero .r-line').forEach(function(l,i){ setTimeout(function(){l.classList.add('in');},180+i*130); });
+    document.querySelectorAll('.hero .r-line').forEach(function(l,i){
+      setTimeout(function(){l.classList.add('in');},180+i*130);
+    });
   });
   /* scroll reveals */
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.16});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.16});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
   /* duplicate logo track for seamless loop */
-  var mq=document.getElementById('mq'); if(mq){ mq.innerHTML+=mq.innerHTML; }
+  var mq=document.getElementById('mq');
+  if(mq){ mq.innerHTML+=mq.innerHTML; }
   /* pause / play marquee motion */
   var mqBtn=document.getElementById('mqBtn'), mqIcon=document.getElementById('mqIcon');
   if(mqBtn&&mq){
@@ -468,23 +442,11 @@ header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px)
       var paused=mq.classList.toggle('paused');
       mqBtn.setAttribute('aria-pressed',paused?'true':'false');
       mqBtn.setAttribute('aria-label',paused?'Play logo motion':'Pause logo motion');
-      mqIcon.innerHTML=paused?'<path d="M8 5v14l11-7z"/>':'<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>';
+      mqIcon.innerHTML=paused
+        ?'<path d="M8 5v14l11-7z"/>'
+        :'<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>';
     });
   }
-  /* floating "Read article" button follows cursor on rows */
-  var pv=document.getElementById('preview'),tx=0,ty=0,cx=0,cy=0,active=false;
-  function loop(){cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;pv.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%) scale('+(active?1:.7)+')';requestAnimationFrame(loop);}
-  loop();
-  document.querySelectorAll('.row').forEach(function(row){
-    row.addEventListener('mouseenter',function(){active=true;pv.classList.add('on');pv.style.opacity='1';});
-    row.addEventListener('mouseleave',function(){active=false;pv.style.opacity='0';});
-  });
-  window.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;});
-  /* magnetic buttons */
-  document.querySelectorAll('.btn').forEach(function(b){
-    b.addEventListener('mousemove',function(e){var r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.25)+'px,'+((e.clientY-r.top-r.height/2)*.35)+'px)';});
-    b.addEventListener('mouseleave',function(){b.style.transform='';});
-  });
 })();
 </script>
 </body>

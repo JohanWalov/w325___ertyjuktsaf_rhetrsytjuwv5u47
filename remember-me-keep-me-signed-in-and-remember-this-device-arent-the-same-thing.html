@@ -19,78 +19,88 @@
 <meta name="twitter:description" content="Three controls, not three names for one: remember an email, hold a session, or skip MFA. Label each precisely and never default the risky ones on.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0C0C0B;--bg-2:#17160F;--fg:#ECE9E0;--body:#D6D2C7;--muted:#8C887D;
-  --line:rgba(236,233,224,.13);--line-2:rgba(236,233,224,.07);
-  --accent:#CBF24D;--accent-ink:#0C0C0B;
-  --disp:"Bricolage Grotesque",system-ui,sans-serif;--sans:"Archivo",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
-  --ease:cubic-bezier(.19,1,.22,1);
+  --bg:#0a0a0a;--bg-2:#141210;--fg:#f2efe7;--body:#cec9bc;--muted:#78756a;
+  --line:rgba(242,239,231,.10);--line-2:rgba(242,239,231,.05);
+  --disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased;}
-::selection{background:var(--accent);color:var(--accent-ink)}
-a{color:inherit}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-feature-settings:"ss01","cv11"}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--fg);color:var(--bg)}
+.wrap{max-width:1360px;margin:0 auto;padding:0 40px}
 
-/* header (same as homepage) */
-header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line-2)}
-.wrap{max-width:1280px;margin:0 auto;padding:0 36px}
-.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
-.logo{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--fg)}
-.logo .blip{width:9px;height:9px;background:var(--accent);border-radius:50%;display:inline-block;animation:blip 2.6s infinite}
-@keyframes blip{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.5);opacity:.55}}
-.nav nav{display:flex;gap:30px}
-.nav nav a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);position:relative;padding:4px 0;transition:color .3s;text-decoration:none}
-.nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .35s var(--ease)}
+/* ---- nav (shared) ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(18px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line-2)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:-.005em;color:var(--fg);display:inline-flex;align-items:center;gap:12px}
+.logo .blip{width:7px;height:7px;background:var(--fg);display:inline-block;border-radius:50%;animation:blip 3s infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.3}}
+.nav nav{display:flex;gap:34px}
+.nav nav a{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);position:relative;padding:6px 0;transition:color .3s var(--ease)}
+.nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--fg);transition:width .35s var(--ease)}
 .nav nav a:hover{color:var(--fg)}
 .nav nav a:hover::after{width:100%}
+.nav .place{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0}
 @media(max-width:520px){.nav nav{gap:20px}}
 
-.article{max-width:720px;margin:0 auto;padding:118px 28px 110px}
-.back{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);text-decoration:none;transition:color .3s var(--ease);margin-bottom:42px}
-.back svg{width:15px;height:15px;transition:transform .3s var(--ease)}
-.back:hover{color:var(--accent)}
-.back:hover svg{transform:translateX(-3px)}
+/* ---- reveal ---- */
+.r-line{display:block;overflow:hidden}
+.r-line>span{display:block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.r-line.in>span{transform:none}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r-line>span{transform:none}.reveal{opacity:1;transform:none}}
 
-h1{font-family:var(--disp);font-weight:400;font-size:clamp(33px,5.4vw,58px);line-height:1.03;letter-spacing:-.03em;color:var(--fg);margin-bottom:34px}
+body{font-size:17px;line-height:1.72}
 
-.author{display:flex;align-items:center;gap:14px;margin:30px 0}
-.author .ava{width:46px;height:46px;border-radius:50%;flex:none;object-fit:cover;background:var(--bg-2);border:1px solid var(--line)}
-.author .who{display:flex;flex-direction:column;line-height:1.3}
-.author .who a{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--fg);text-decoration:none;transition:color .25s}
-.author .who a:hover{color:var(--accent)}
-.author .role{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:3px}
+.article{max-width:720px;margin:0 auto;padding:130px 28px 130px}
+.back{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:0;color:var(--muted);margin-bottom:56px;transition:color .3s var(--ease)}
+.back svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.back:hover{color:var(--fg)}
+.back:hover svg{transform:translateX(-4px)}
 
-/* TLDR — stands out via box only */
-.tldr{font-size:18px;line-height:1.7;color:var(--body);background:var(--bg-2);border:1px solid var(--line);
-  border-radius:12px;padding:20px 24px;margin:26px 0 36px}
-.tldr .lbl{font-family:var(--sans);font-size:18px;color:var(--accent);
-  font-weight:700;margin-right:2px}
+h1{font-family:var(--disp);font-weight:300;font-size:clamp(38px,6.2vw,72px);line-height:1;letter-spacing:-.03em;color:var(--fg);font-variation-settings:"opsz" 144;margin-bottom:44px}
 
-/* Victoria's comment — stands out */
-.comment{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin:36px 0}
-.comment .author{margin:0 0 16px}
+.author{display:flex;align-items:center;gap:14px;margin:32px 0}
+.author .ava{width:44px;height:44px;border-radius:50%;flex:none;object-fit:cover;background:var(--bg-2);border:1px solid var(--line)}
+.author .who{display:flex;flex-direction:column;line-height:1.35}
+.author .who a{font-family:var(--sans);font-weight:600;font-size:14.5px;color:var(--fg);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:var(--line);transition:text-decoration-color .25s var(--ease),opacity .25s var(--ease)}
+.author .who a:hover{text-decoration-color:var(--fg)}
+.author .role{font-family:var(--sans);font-size:13px;letter-spacing:0;color:var(--muted);margin-top:4px}
+
+/* TLDR — bordered, restrained */
+.tldr{font-family:var(--sans);font-size:16.5px;line-height:1.65;color:var(--body);border-left:1px solid var(--fg);padding:6px 0 6px 24px;margin:32px 0 44px;background:transparent}
+.tldr .lbl{font-family:var(--sans);font-size:16.5px;letter-spacing:0;color:var(--fg);font-weight:600;margin-right:0;display:inline;vertical-align:baseline}
+
+/* co-author comment block */
+.comment{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:32px 0;margin:44px 0}
+.comment .author{margin:0 0 18px}
 .comment p{margin:0 0 16px}
 .comment p:last-child{margin-bottom:0}
 
-h2{font-family:var(--disp);font-weight:500;font-size:clamp(23px,3.3vw,33px);line-height:1.08;letter-spacing:-.02em;color:var(--fg);margin:54px 0 18px}
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(24px,3.4vw,36px);line-height:1.1;letter-spacing:-.02em;color:var(--fg);font-variation-settings:"opsz" 96;margin:66px 0 22px}
 
 p{margin:0 0 22px}
-p a,figcaption a,.comment a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:opacity .2s}
-p a:hover,figcaption a:hover{opacity:.7}
+p a,figcaption a,.comment a{color:var(--fg);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:var(--line);transition:text-decoration-color .25s var(--ease)}
+p a:hover,figcaption a:hover,.comment a:hover{text-decoration-color:var(--fg)}
 
-ul,ol{margin:0 0 22px;padding-left:0;list-style:none}
-ul li,ol li{position:relative;padding-left:30px;margin-bottom:12px;color:var(--body)}
-ul li::before{content:"";position:absolute;left:4px;top:13px;width:8px;height:8px;background:var(--accent);border-radius:2px}
+ul,ol{margin:0 0 24px;padding-left:0;list-style:none}
+ul li,ol li{position:relative;padding-left:28px;margin-bottom:14px;color:var(--body)}
+ul li::before{content:"";position:absolute;left:2px;top:12px;width:10px;height:1px;background:var(--fg)}
 ol{counter-reset:n}
 ol li{counter-increment:n}
-ol li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:1px;font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700}
+ol li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:3px;font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);font-weight:500}
 
-figure{margin:32px 0}
-figure img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
-figcaption{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
+figure{margin:40px 0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--line);background:#fff}
+figcaption{font-family:var(--sans);font-size:13px;line-height:1.55;color:var(--muted);margin-top:14px}
 </style>
 </head>
 <body>
@@ -103,7 +113,7 @@ figcaption{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
   <a class="back" href="https://usablesecurity.blog/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
   <h1>"Remember me", "Keep me signed in", and "Remember this device" aren't the same thing</h1>
   <div class="author"><img class="ava" src="images/Sviatoslav_Nytka.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
-      <div class="tldr"><span class="lbl">TLDR</span>: "Remember me", "Keep me signed in", and "Remember this device". They're constantly confused, by users and by the products labelling them. They do three different things with three different risk levels: remember your email, keep your session alive, or skip your MFA. Pick the right one, label it precisely, provide clear explanation, and never quietly default the risky ones on.</div>
+      <div class="tldr"><span class="lbl">Summary</span>: "Remember me", "Keep me signed in", and "Remember this device". They're constantly confused, by users and by the products labelling them. They do three different things with three different risk levels: remember your email, keep your session alive, or skip your MFA. Pick the right one, label it precisely, provide clear explanation, and never quietly default the risky ones on.</div>
       <p>Here's the real problem in practice: in one product, "Remember me" only saves your email address. In another, "Remember me" silently keeps you signed in and provides no explanation. From the label alone, users can't tell the difference, so they can't make an informed choice. Many products use these labels interchangeably, but these actions are not the same.</p>
       <ol><li>Remember me – saves the identifier. The original meaning, and the safest. It stores your email or username on the device so the field is pre-filled next time. The password is still required. Nothing that grants access is saved.</li><li>Keep me signed in – keeps the session alive. Also seen as "Stay signed in". This persists your authenticated session well past the normal timeout, so closing the browser doesn't log you out. You skip re-authentication for days or weeks. Convenient, but now anyone with access to the device is already inside.</li><li>Remember this device – skips MFA. Also "Trust this computer". This marks the device as trusted so your second factor isn't requested on future logins for some window, often 30 days. This is the one that turns off your strongest protection on that device.</li></ol>
       <div class="comment"><div class="author"><img class="ava" src="images/Victoria_Shutenko.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>The useful way to think about risks is by what each one actually persists.</p><ol><li>"Remember me" persists an identifier. There's no credential and no session stored, so the worst case on a shared device is that the next person sees which email was used. Low risk.</li><li>"Keep me signed in" persists a session – a long-lived cookie or token. Anyone who can use the device, or who steals that token through malware or a cross-site scripting flaw, gets in without ever knowing the password. The exposure window is the whole lifetime of that session. High risk when used in shared devices.</li><li>"Remember this device" persists a decision to skip the second factor. That's high risk, because it removes the control that's supposed to save the account when the password is phished or reused. If the password later leaks and the device is trusted, there's nothing standing in the way.</li></ol></div>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://usablesecurity.blog/malicious-link-warning-how-to-design-ux-best-practices-examples.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Malicious link warning: How to design, UX best practices &amp; examples</title>
+<meta name="description" content="A link inside a product feels trusted, but the sender may not be. Warn users early, show the real destination, and flag known-malicious links before they open.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Usable Security Blog">
+<meta property="og:title" content="Malicious link warning: How to design, UX best practices &amp; examples">
+<meta property="og:description" content="A link inside a product feels trusted, but the sender may not be. Warn users early, show the real destination, and flag known-malicious links before they open.">
+<meta property="og:url" content="https://usablesecurity.blog/malicious-link-warning-how-to-design-ux-best-practices-examples.html">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Malicious link warning: How to design, UX best practices &amp; examples">
+<meta name="twitter:description" content="A link inside a product feels trusted, but the sender may not be. Warn users early, show the real destination, and flag known-malicious links before they open.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--bg-2:#141210;--fg:#f2efe7;--body:#cec9bc;--muted:#78756a;
+  --line:rgba(242,239,231,.10);--line-2:rgba(242,239,231,.05);
+  --disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-feature-settings:"ss01","cv11"}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--fg);color:var(--bg)}
+.wrap{max-width:1360px;margin:0 auto;padding:0 40px}
+
+/* ---- nav (shared) ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(18px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line-2)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:-.005em;color:var(--fg);display:inline-flex;align-items:center;gap:12px}
+.logo .blip{width:7px;height:7px;background:var(--fg);display:inline-block;border-radius:50%;animation:blip 3s infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.3}}
+.nav nav{display:flex;gap:34px}
+.nav nav a{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);position:relative;padding:6px 0;transition:color .3s var(--ease)}
+.nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--fg);transition:width .35s var(--ease)}
+.nav nav a:hover{color:var(--fg)}
+.nav nav a:hover::after{width:100%}
+.nav .place{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0}
+@media(max-width:520px){.nav nav{gap:20px}}
+
+/* ---- reveal ---- */
+.r-line{display:block;overflow:hidden}
+.r-line>span{display:block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.r-line.in>span{transform:none}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r-line>span{transform:none}.reveal{opacity:1;transform:none}}
+
+body{font-size:17px;line-height:1.72}
+
+.article{max-width:720px;margin:0 auto;padding:130px 28px 130px}
+.back{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:0;color:var(--muted);margin-bottom:56px;transition:color .3s var(--ease)}
+.back svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.back:hover{color:var(--fg)}
+.back:hover svg{transform:translateX(-4px)}
+
+h1{font-family:var(--disp);font-weight:300;font-size:clamp(38px,6.2vw,72px);line-height:1;letter-spacing:-.03em;color:var(--fg);font-variation-settings:"opsz" 144;margin-bottom:44px}
+
+.author{display:flex;align-items:center;gap:14px;margin:32px 0}
+.author .ava{width:44px;height:44px;border-radius:50%;flex:none;object-fit:cover;background:var(--bg-2);border:1px solid var(--line)}
+.author .who{display:flex;flex-direction:column;line-height:1.35}
+.author .who a{font-family:var(--sans);font-weight:600;font-size:14.5px;color:var(--fg);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:var(--line);transition:text-decoration-color .25s var(--ease),opacity .25s var(--ease)}
+.author .who a:hover{text-decoration-color:var(--fg)}
+.author .role{font-family:var(--sans);font-size:13px;letter-spacing:0;color:var(--muted);margin-top:4px}
+
+/* TLDR — bordered, restrained */
+.tldr{font-family:var(--sans);font-size:16.5px;line-height:1.65;color:var(--body);border-left:1px solid var(--fg);padding:6px 0 6px 24px;margin:32px 0 44px;background:transparent}
+.tldr .lbl{font-family:var(--sans);font-size:16.5px;letter-spacing:0;color:var(--fg);font-weight:600;margin-right:0;display:inline;vertical-align:baseline}
+
+/* co-author comment block */
+.comment{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:32px 0;margin:44px 0}
+.comment .author{margin:0 0 18px}
+.comment p{margin:0 0 16px}
+.comment p:last-child{margin-bottom:0}
+
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(24px,3.4vw,36px);line-height:1.1;letter-spacing:-.02em;color:var(--fg);font-variation-settings:"opsz" 96;margin:66px 0 22px}
+
+p{margin:0 0 22px}
+p a,figcaption a,.comment a{color:var(--fg);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:var(--line);transition:text-decoration-color .25s var(--ease)}
+p a:hover,figcaption a:hover,.comment a:hover{text-decoration-color:var(--fg)}
+
+ul,ol{margin:0 0 24px;padding-left:0;list-style:none}
+ul li,ol li{position:relative;padding-left:28px;margin-bottom:14px;color:var(--body)}
+ul li::before{content:"";position:absolute;left:2px;top:12px;width:10px;height:1px;background:var(--fg)}
+ol{counter-reset:n}
+ol li{counter-increment:n}
+ol li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:3px;font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);font-weight:500}
+
+figure{margin:40px 0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--line);background:#fff}
+figcaption{font-family:var(--sans);font-size:13px;line-height:1.55;color:var(--muted);margin-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="https://usablesecurity.blog/">Usable&nbsp;Security</a>
+  </div>
+</header>
+<article class="article">
+  <a class="back" href="https://usablesecurity.blog/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
+  <h1>Malicious link warning: How to design, UX best practices &amp; examples</h1>
+  <div class="author"><img class="ava" src="images/Sviatoslav_Nytka.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
+      <div class="tldr"><span class="lbl">Summary</span>: A link inside a product can feel trusted by default. But the person who sent it may not be. A scammer can send a link that looks safe but points somewhere else, or move the conversation outside the product entirely. Good UX should warn users early, explain what happens when they click, and block or flag links that are already known to be suspicious.</div>
+      <p>A message inside any familiar product feels different from a random message on the internet. The user already trusts the product. They know the interface, recognize the logo, and assume the conversation is happening in a controlled environment. But the platform doesn&rsquo;t necessarily know whether the person sending it is trustworthy.</p>
+      <p>The problem gets worse when the link itself is misleading. A message can visually show <code>www.airbnb.com</code>, while it is just a text linked to <code>www.scam.com</code>. The user sees one destination and gets sent to another. On a desktop, they might notice the real URL by hovering over it. On mobile, there may be no equivalent moment to inspect the destination before opening it.</p>
+      <p>The external links warning helps prevent security risks. It informs users before redirecting to external websites and provides clear explanations and guidance.</p>
+      <div class="comment"><div class="author"><img class="ava" src="images/Victoria_Shutenko.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>Link protection works best as a layered system. The product can check URLs against threat-intelligence feeds and reputation databases, inspect redirect chains, and compare the visible link text with the actual destination. It&rsquo;s also useful to consider signals such as newly registered domains, suspicious URL patterns, and domains that have been reported for phishing or abuse.</p><p>Of course, not every product has the resources to build or maintain these detection systems. The good news is that you can still prevent many attacks with simple UX patterns that warn users at the right moment.</p></div>
+      <h2>What good UX looks like</h2>
+      <ol><li>Warn users before they need to think about links. It can be shown when a conversation starts, near the message composer, or as a small banner at the top of the thread.</li><li>Explain the real destination when the user clicks. Don&rsquo;t immediately throw the user onto another website, show the real URL. This becomes even more important when the visible text doesn&rsquo;t match the real destination.</li><li>Don&rsquo;t wait for the user to discover a bad link. Products that allow user-generated content should maintain a reputation system for links. When someone sends a message containing a link, the system can check the destination against known malicious domains, phishing databases, previous reports, and other security signals.</li></ol>
+      <figure><img src="images/ce8a774cc5ab43ad01155b0661eece7e03685e3c.png" alt="" loading="lazy"><figcaption><a href="https://www.booking.com/" target="_blank" rel="noopener">Booking</a>. A persistent warning reminds users not to click suspicious links or respond to unusual messages while communicating with another person.</figcaption></figure>
+      <figure><img src="images/ee904c20bf37d51570a5a7444a48e7e17f2a4e15.png" alt="" loading="lazy"><figcaption><a href="https://www.temu.com/" target="_blank" rel="noopener">Temu</a>. A security reminder stays visible across the product, warning users about scam messages and links and reminding them that the platform won&rsquo;t ask for extra fees via SMS or email.</figcaption></figure>
+      <figure><img src="images/36e9e4d67363af4a36df93da0942b897b8175b5e.png" alt="" loading="lazy"><figcaption><a href="https://slack.com/" target="_blank" rel="noopener">Slack</a>. A link warning shows the real destination before the user leaves the product and gives them a clear choice to go back or continue.</figcaption></figure>
+      <figure><img src="images/b760c0808170b6b2deac49450e6f29f413f5ae4a.png" alt="" loading="lazy"><figcaption><a href="https://www.tripadvisor.com/" target="_blank" rel="noopener">Tripadvisor</a>. A link warning shows the real destination before the user leaves the product and gives them a clear choice to go back or continue.</figcaption></figure>
+      <figure><img src="images/f9fc2ed3ad186361c66e0217af84b3af7e444e7b.png" alt="" loading="lazy"><figcaption><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>. A prominent warning tells users that the destination has been classified as malicious and recommends not opening it.</figcaption></figure>
+      <figure><img src="images/0b551a9f9b0ceb8afa2d1a718f7b6118ab4d812c.png" alt="" loading="lazy"><figcaption><a href="https://www.microsoft.com/microsoft-365" target="_blank" rel="noopener">Microsoft 365</a>. A prominent warning tells users that the destination has been classified as malicious and recommends not opening it.</figcaption></figure>
+      <h2>Bottom line</h2>
+      <p>Products where people communicate with each other should treat user-generated links as untrusted content by default. Warn users before they leave, show the real destination at the moment of interaction, and use link reputation to block or flag known threats.</p>
+</article>
+</body>
+</html>

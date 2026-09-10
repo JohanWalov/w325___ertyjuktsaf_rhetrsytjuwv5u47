@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://usablesecurity.blog/step-up-authentication-how-to-design-ux-best-practices-examples.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Step-up authentication: How to design, UX best practices &amp; examples</title>
+<meta name="description" content="A logged-in session proves someone signed in once, not that the person acting now is the owner. Ask for fresh proof of identity at sensitive actions.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Usable Security Blog">
+<meta property="og:title" content="Step-up authentication: How to design, UX best practices &amp; examples">
+<meta property="og:description" content="A logged-in session proves someone signed in once, not that the person acting now is the owner. Ask for fresh proof of identity at sensitive actions.">
+<meta property="og:url" content="https://usablesecurity.blog/step-up-authentication-how-to-design-ux-best-practices-examples.html">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Step-up authentication: How to design, UX best practices &amp; examples">
+<meta name="twitter:description" content="A logged-in session proves someone signed in once, not that the person acting now is the owner. Ask for fresh proof of identity at sensitive actions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--bg-2:#141210;--fg:#f2efe7;--body:#cec9bc;--muted:#78756a;
+  --line:rgba(242,239,231,.10);--line-2:rgba(242,239,231,.05);
+  --disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-feature-settings:"ss01","cv11"}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--fg);color:var(--bg)}
+.wrap{max-width:1360px;margin:0 auto;padding:0 40px}
+
+/* ---- nav (shared) ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(18px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line-2)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:-.005em;color:var(--fg);display:inline-flex;align-items:center;gap:12px}
+.logo .blip{width:7px;height:7px;background:var(--fg);display:inline-block;border-radius:50%;animation:blip 3s infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.3}}
+.nav nav{display:flex;gap:34px}
+.nav nav a{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);position:relative;padding:6px 0;transition:color .3s var(--ease)}
+.nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--fg);transition:width .35s var(--ease)}
+.nav nav a:hover{color:var(--fg)}
+.nav nav a:hover::after{width:100%}
+.nav .place{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0}
+@media(max-width:520px){.nav nav{gap:20px}}
+
+/* ---- reveal ---- */
+.r-line{display:block;overflow:hidden}
+.r-line>span{display:block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.r-line.in>span{transform:none}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r-line>span{transform:none}.reveal{opacity:1;transform:none}}
+
+body{font-size:17px;line-height:1.72}
+
+.article{max-width:720px;margin:0 auto;padding:130px 28px 130px}
+.back{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:0;color:var(--muted);margin-bottom:56px;transition:color .3s var(--ease)}
+.back svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.back:hover{color:var(--fg)}
+.back:hover svg{transform:translateX(-4px)}
+
+h1{font-family:var(--disp);font-weight:300;font-size:clamp(38px,6.2vw,72px);line-height:1;letter-spacing:-.03em;color:var(--fg);font-variation-settings:"opsz" 144;margin-bottom:44px}
+
+.author{display:flex;align-items:center;gap:14px;margin:32px 0}
+.author .ava{width:44px;height:44px;border-radius:50%;flex:none;object-fit:cover;background:var(--bg-2);border:1px solid var(--line)}
+.author .who{display:flex;flex-direction:column;line-height:1.35}
+.author .who a{font-family:var(--sans);font-weight:600;font-size:14.5px;color:var(--fg);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:var(--line);transition:text-decoration-color .25s var(--ease),opacity .25s var(--ease)}
+.author .who a:hover{text-decoration-color:var(--fg)}
+.author .role{font-family:var(--sans);font-size:13px;letter-spacing:0;color:var(--muted);margin-top:4px}
+
+/* TLDR — bordered, restrained */
+.tldr{font-family:var(--sans);font-size:16.5px;line-height:1.65;color:var(--body);border-left:1px solid var(--fg);padding:6px 0 6px 24px;margin:32px 0 44px;background:transparent}
+.tldr .lbl{font-family:var(--sans);font-size:16.5px;letter-spacing:0;color:var(--fg);font-weight:600;margin-right:0;display:inline;vertical-align:baseline}
+
+/* co-author comment block */
+.comment{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:32px 0;margin:44px 0}
+.comment .author{margin:0 0 18px}
+.comment p{margin:0 0 16px}
+.comment p:last-child{margin-bottom:0}
+
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(24px,3.4vw,36px);line-height:1.1;letter-spacing:-.02em;color:var(--fg);font-variation-settings:"opsz" 96;margin:66px 0 22px}
+
+p{margin:0 0 22px}
+p a,figcaption a,.comment a{color:var(--fg);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:var(--line);transition:text-decoration-color .25s var(--ease)}
+p a:hover,figcaption a:hover,.comment a:hover{text-decoration-color:var(--fg)}
+
+ul,ol{margin:0 0 24px;padding-left:0;list-style:none}
+ul li,ol li{position:relative;padding-left:28px;margin-bottom:14px;color:var(--body)}
+ul li::before{content:"";position:absolute;left:2px;top:12px;width:10px;height:1px;background:var(--fg)}
+ol{counter-reset:n}
+ol li{counter-increment:n}
+ol li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:3px;font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted);font-weight:500}
+
+figure{margin:40px 0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--line);background:#fff}
+figcaption{font-family:var(--sans);font-size:13px;line-height:1.55;color:var(--muted);margin-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="https://usablesecurity.blog/">Usable&nbsp;Security</a>
+  </div>
+</header>
+<article class="article">
+  <a class="back" href="https://usablesecurity.blog/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
+  <h1>Step-up authentication: How to design, UX best practices &amp; examples</h1>
+  <div class="author"><img class="ava" src="images/Sviatoslav_Nytka.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
+      <div class="tldr"><span class="lbl">Summary</span>: A logged-in session proves someone signed in once, not that the person acting right now is the account owner. For sensitive actions like changing an email or phone number, adding or removing MFA and passkeys, exporting data, or deleting the account, ask for a fresh proof of identity at the moment of the action. It's called step-up authentication, and it's what stops a hijacked session from quietly taking over an account.</div>
+      <p>Being logged in only tells the product you authenticated at some point, maybe on a session that's been alive for weeks, maybe on a device that's since been left unlocked on a desk. It doesn't tell the product that the person clicking right now is you.</p>
+      <p>Step-up authentication closes that gap. At the sensitive action, the product asks you to prove it's you again (with your password/code/MFA).</p>
+      <div class="comment"><div class="author"><img class="ava" src="images/Victoria_Shutenko.png" alt="Victoria Shutenko" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/victoria-s-a44050b8/" target="_blank" rel="noopener">Victoria Shutenko</a><span class="role">Security Engineer at TechMagic</span></div></div><p>The highest-priority actions are changes to recovery channels – email, phone, MFA. Those are the levers an attacker uses to lock the real owner out permanently, so they should always sit behind a fresh check. One detail products often get wrong: the verification factor must be the existing recovery channel, not the one being added. For example, when changing an email address, the verification code should be sent to the current email, not to the new email that is about to replace it.</p><p>Few more actions that can lock out the real owner or move data out of the account:</p><ul><li>Exporting personal or sensitive data</li><li>Deleting or closing the account</li><li>Adding payout details, API tokens, or transferring ownership</li></ul><p>It’s also important that products handling sensitive data automatically log users out after a period of inactivity.</p></div>
+      <h2>What actually protects credentials today</h2>
+      <ol><li>Step up at the action, freshly. The proof should be close in time to the sensitive action, not inherited from a login hours or weeks ago.</li><li>Provide users with alternative options to verify their identity, when possible, such as email, phone number, or password verification.</li><li>Notify out of band. Send a message to a known channel after the change, so if it wasn't the owner, they find out.</li></ol>
+      <figure><img src="images/be443d9f01975250d0b8657ce861ac7a5c7faea4.png" alt="" loading="lazy"><figcaption><a href="https://www.productboard.com/" target="_blank" rel="noopener">Airbnb</a>. A step-up authentication by SMS, phone call, or email, before a sensitive action continues.</figcaption></figure>
+      <figure><img src="images/eddb52e5b43d8285b321a2ac83a3f82b99deea73.png" alt="" loading="lazy"><figcaption><a href="https://www.productboard.com/" target="_blank" rel="noopener">GitHub</a>. A step-up authentication by email.</figcaption></figure>
+      <figure><img src="images/3bdea9b7d9db21b37397c2d99a7706085a5e2eee.png" alt="" loading="lazy"><figcaption><a href="https://www.productboard.com/" target="_blank" rel="noopener">Atlassian</a>. A step-up authentication by password.</figcaption></figure>
+      <h2>Bottom line</h2>
+      <p>Put step-up authentication on the changes that matter, like recovery channels, MFA, data export, deletion. Keep a short grace window so it isn't constant, and tell the user out of band when it happens.</p>
+</article>
+</body>
+</html>
