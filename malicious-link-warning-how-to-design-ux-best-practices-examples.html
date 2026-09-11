@@ -66,7 +66,7 @@ body{font-size:17px;line-height:1.72}
 .back:hover{color:var(--fg)}
 .back:hover svg{transform:translateX(-4px)}
 
-h1{font-family:var(--disp);font-weight:300;font-size:clamp(34px,4.2vw,50px);line-height:1.1;letter-spacing:-.03em;color:var(--fg);font-variation-settings:"opsz" 144;margin-bottom:44px}
+h1{font-family:var(--disp);font-weight:300;font-size:clamp(30px,4.2vw,46px);line-height:1;letter-spacing:-.03em;color:var(--fg);font-variation-settings:"opsz" 144;margin-bottom:44px}
 
 .author{display:flex;align-items:center;gap:14px;margin:32px 0}
 .author .ava{width:44px;height:44px;border-radius:50%;flex:none;object-fit:cover;background:var(--bg-2);border:1px solid var(--line)}
@@ -80,7 +80,7 @@ h1{font-family:var(--disp);font-weight:300;font-size:clamp(34px,4.2vw,50px);line
 .tldr .lbl{font-family:var(--sans);font-size:16.5px;letter-spacing:0;color:var(--fg);font-weight:600;margin-right:0;display:inline;vertical-align:baseline}
 
 /* co-author comment block */
-.comment{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:32px 0;margin:44px 0}
+.comment{background:rgba(242,239,231,.04);padding:28px 32px;margin:44px 0}
 .comment .author{margin:0 0 18px}
 .comment p{margin:0 0 16px}
 .comment p:last-child{margin-bottom:0}
@@ -113,7 +113,7 @@ figcaption{font-family:var(--sans);font-size:13px;line-height:1.55;color:var(--m
   <a class="back" href="https://usablesecurity.blog/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
   <h1>Don&rsquo;t make dangerous links look trustworthy</h1>
   <div class="author"><img class="ava" src="images/Sviatoslav_Nytka.png" alt="Sviatoslav Nytka" loading="lazy"><div class="who"><a href="https://www.linkedin.com/in/sviatoslav-nytka/" target="_blank" rel="noopener">Sviatoslav Nytka</a><span class="role">Senior Product Designer at TechMagic</span></div></div>
-      <div class="tldr"><span class="lbl">Summary</span>: A link inside a product can feel trusted by default. But the person who sent it may not be. A scammer can send a link that looks safe but points somewhere else, or move the conversation outside the product entirely. Good UX should warn users early, explain what happens when they click, and block or flag links that are already known to be suspicious.</div>
+      <div class="tldr"><span class="lbl">TLDR</span>: A link inside a product can feel trusted by default. But the person who sent it may not be. A scammer can send a link that looks safe but points somewhere else, or move the conversation outside the product entirely. Good UX should warn users early, explain what happens when they click, and block or flag links that are already known to be suspicious.</div>
       <p>A message inside any familiar product feels different from a random message on the internet. The user already trusts the product. They know the interface, recognize the logo, and assume the conversation is happening in a controlled environment. But the platform doesn&rsquo;t necessarily know whether the person sending it is trustworthy.</p>
       <p>The problem gets worse when the link itself is misleading. A message can visually show <code>www.airbnb.com</code>, while it is just a text linked to <code>www.scam.com</code>. The user sees one destination and gets sent to another. On a desktop, they might notice the real URL by hovering over it. On mobile, there may be no equivalent moment to inspect the destination before opening it.</p>
       <p>The external links warning helps prevent security risks. It informs users before redirecting to external websites and provides clear explanations and guidance.</p>
